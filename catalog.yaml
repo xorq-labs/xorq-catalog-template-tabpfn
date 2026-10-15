@@ -8,6 +8,7 @@ entries:
   - 67bca2a55262
   - fed63f12ace2
   - 32787e91a47d
+  - aff13d69dd1f
 aliases:
   - tabpfn-insurance
   - policies
@@ -18,3 +19,4 @@ aliases:
   - claim-model
   - severity-model
   - calibration-model
+  - tabpfn-scorer
