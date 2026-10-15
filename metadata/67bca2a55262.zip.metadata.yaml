@@ -1,0 +1,1333 @@
+md5sum: 8dc8c5723b5aecd51b456f1438bf7557
+backends:
+  - xorq_datafusion
+expr_metadata:
+  kind: source
+  schema_out:
+    dumps_of__inner_fit_0(VehAge, DrivAge, VehBrand, VehPower, VehGas, Region, Area, BonusMalus, Density, Exposure, has_claim): binary
+  root_tag: train_test_split
+  cache_keys:
+    key: xorq_cache-snapshot-b4478fbfc3ca28c0fd0a43428d0ebc4b
+    relative_path: parquet
+  sql_queries:
+    - - main
+      - xorq_datafusion
+      - |-
+        SELECT
+          _FIT_PREDICT_PROBA_CLAIM_AA4C9F40E438(
+            "t7"."VehAge",
+            "t7"."DrivAge",
+            "t7"."VehBrand",
+            "t7"."VehPower",
+            "t7"."VehGas",
+            "t7"."Region",
+            "t7"."Area",
+            "t7"."BonusMalus",
+            "t7"."Density",
+            "t7"."Exposure",
+            "t7"."has_claim"
+          ) AS "dumps_of__inner_fit_0(VehAge, DrivAge, VehBrand, VehPower, VehGas, Region, Area, BonusMalus, Density, Exposure, has_claim)"
+        FROM (
+          SELECT
+            "t6"."IDpol",
+            "t6"."ClaimNb",
+            LEAST("t6"."Exposure", 1.0) AS "Exposure",
+            "t6"."Area",
+            "t6"."VehPower",
+            "t6"."VehAge",
+            "t6"."DrivAge",
+            "t6"."BonusMalus",
+            "t6"."VehBrand",
+            "t6"."VehGas",
+            "t6"."Density",
+            "t6"."Region",
+            LEAST(COALESCE("t6"."ClaimAmount", 0.0), 200000.0) AS "ClaimAmount",
+            CAST(LEAST(COALESCE("t6"."ClaimAmount", 0.0), 200000.0) AS DOUBLE PRECISION) / LEAST("t6"."Exposure", 1.0) AS "PurePremium",
+            CAST(LEAST(COALESCE("t6"."ClaimAmount", 0.0), 200000.0) > 0 AS BIGINT) AS "has_claim"
+          FROM (
+            SELECT
+              "t5"."IDpol",
+              "t5"."ClaimNb",
+              "t5"."Exposure",
+              "t5"."Area",
+              "t5"."VehPower",
+              "t5"."VehAge",
+              "t5"."DrivAge",
+              "t5"."BonusMalus",
+              "t5"."VehBrand",
+              "t5"."VehGas",
+              "t5"."Density",
+              "t5"."Region",
+              "t5"."ClaimAmount"
+            FROM (
+              SELECT
+                "t2"."IDpol",
+                "t2"."ClaimNb",
+                "t2"."Exposure",
+                "t2"."Area",
+                "t2"."VehPower",
+                "t2"."VehAge",
+                "t2"."DrivAge",
+                "t2"."BonusMalus",
+                "t2"."VehBrand",
+                "t2"."VehGas",
+                "t2"."Density",
+                "t2"."Region",
+                "t4"."IDpol" AS "IDpol_right",
+                "t4"."ClaimAmount"
+              FROM "xorq_cached_node_name_placeholder" AS "t2"
+              LEFT OUTER JOIN (
+                SELECT
+                  "t1"."IDpol",
+                  SUM("t1"."ClaimAmount") AS "ClaimAmount"
+                FROM (
+                  SELECT
+                    "t1"."ClaimAmount",
+                    "t1"."IDpol"
+                  FROM "xorq_cached_node_name_placeholder" AS "t1"
+                ) AS t1
+                GROUP BY
+                  "t1"."IDpol"
+              ) AS "t4"
+                ON "t2"."IDpol" = "t4"."IDpol"
+            ) AS "t5"
+          ) AS "t6"
+          WHERE
+            (
+              ARROW_CAST(0, 'Decimal128(38, 9)') * 100000
+            ) <= (
+              ABS(
+                HASH_INT(
+                  CASE
+                    WHEN CONCAT_WS(',', CAST("t6"."IDpol" AS VARCHAR)) IS NULL
+                    OR '16157387885063800092468972531095442600227637936690303362357377535130907802013' IS NULL
+                    THEN CAST(NULL AS VARCHAR)
+                    ELSE CONCAT_WS(',', CAST("t6"."IDpol" AS VARCHAR)) || '16157387885063800092468972531095442600227637936690303362357377535130907802013'
+                  END
+                )
+              ) % 100000
+            )
+            AND (
+              ABS(
+                HASH_INT(
+                  CASE
+                    WHEN CONCAT_WS(',', CAST("t6"."IDpol" AS VARCHAR)) IS NULL
+                    OR '16157387885063800092468972531095442600227637936690303362357377535130907802013' IS NULL
+                    THEN CAST(NULL AS VARCHAR)
+                    ELSE CONCAT_WS(',', CAST("t6"."IDpol" AS VARCHAR)) || '16157387885063800092468972531095442600227637936690303362357377535130907802013'
+                  END
+                )
+              ) % 100000
+            ) < (
+              ARROW_CAST(0.045, 'Decimal128(38, 9)') * 100000
+            )
+        ) AS "t7"
+    - - openml_41214
+      - xorq_datafusion
+      - |-
+        SELECT
+          *
+        FROM "openml_41214"
+    - - openml_41215
+      - xorq_datafusion
+      - |-
+        SELECT
+          *
+        FROM "openml_41215"
+  sql_relations:
+    main:
+      - openml_41214
+      - openml_41215
+      - xorq_cached_node_name_placeholder
+    openml_41214:
+      - openml_41214
+    openml_41215:
+      - openml_41215
+  lineage:
+    version: 2
+    root: "@cached_node_1"
+    nodes:
+      - id: "@cached_node_1"
+        snapshot_hash: 505ef798b7a8e19f45b9a956d30ffee8
+        type: CachedNode
+        label: Cache[cache] xorq_cached_node_name_placeholder
+        is_boundary: true
+        boundary_kind: cache
+        backend: xorq_datafusion
+        cache_kind: ParquetCache
+        cache_path: parquet
+        cache_key_prefix: xorq_cache-
+        schema:
+          dumps_of__inner_fit_0(VehAge, DrivAge, VehBrand, VehPower, VehGas, Region, Area, BonusMalus, Density, Exposure, has_claim): binary
+      - id: "@aggregate_2"
+        snapshot_hash: 627bcaa9c6fe60a5adef69b9ed6156ad
+        type: Aggregate
+        label: Aggregate
+        is_boundary: false
+        schema:
+          dumps_of__inner_fit_0(VehAge, DrivAge, VehBrand, VehPower, VehGas, Region, Area, BonusMalus, Density, Exposure, has_claim): binary
+      - id: "@tag_3"
+        snapshot_hash: 2d246d911b5a97f866a94a5fd9ea0d2a
+        type: Tag
+        label: Tag
+        is_boundary: true
+        boundary_kind: tag
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+          ClaimAmount: float64
+          PurePremium: float64
+          has_claim: int64
+        tag_metadata:
+          tag: train_test_split
+          split_i: 0
+          split_size: 0.045
+          test_sizes:
+            - 0.045
+            - 0.015
+            - 0.015
+            - 0.925
+          num_buckets: 100000
+          unique_key:
+            - IDpol
+      - id: "@dumps_of__inner_fit_0_4"
+        snapshot_hash: 22e966fffd9a8ca609c0456252aa0cb4
+        type: dumps_of__inner_fit_0
+        label: dumps_of__inner_fit_0
+        is_boundary: false
+      - id: "@filter_5"
+        snapshot_hash: e1dd0287c4033278802e596f4304920a
+        type: Filter
+        label: Filter
+        is_boundary: false
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+          ClaimAmount: float64
+          PurePremium: float64
+          has_claim: int64
+      - id: "@field_6"
+        snapshot_hash: 8f73d31bc9db0c4669c06f5e9a75dc05
+        type: Field
+        label: Field:VehAge
+        is_boundary: false
+      - id: "@field_7"
+        snapshot_hash: 5e3e02fbf4d7961d410470ccdcdd95e8
+        type: Field
+        label: Field:DrivAge
+        is_boundary: false
+      - id: "@field_8"
+        snapshot_hash: dbc2c1489a3921072b03eee69b01484c
+        type: Field
+        label: Field:VehBrand
+        is_boundary: false
+      - id: "@field_9"
+        snapshot_hash: ae4ff951f585d130d2dd839440556842
+        type: Field
+        label: Field:VehPower
+        is_boundary: false
+      - id: "@field_10"
+        snapshot_hash: 414bfa6359bbfd19db1a45511375a6e6
+        type: Field
+        label: Field:VehGas
+        is_boundary: false
+      - id: "@field_11"
+        snapshot_hash: c83ee990a841c075c225743bf1770c77
+        type: Field
+        label: Field:Region
+        is_boundary: false
+      - id: "@field_12"
+        snapshot_hash: 1e507813b24654b57cd2a2a6c9f88401
+        type: Field
+        label: Field:Area
+        is_boundary: false
+      - id: "@field_13"
+        snapshot_hash: 00824060439b4728310c972fef832f8b
+        type: Field
+        label: Field:BonusMalus
+        is_boundary: false
+      - id: "@field_14"
+        snapshot_hash: 56cbd96e7d29b06a849eccbedef7bdf5
+        type: Field
+        label: Field:Density
+        is_boundary: false
+      - id: "@field_15"
+        snapshot_hash: cbe5ee38e536bd62dadadfab9333f929
+        type: Field
+        label: Field:Exposure
+        is_boundary: false
+      - id: "@field_16"
+        snapshot_hash: 328aaeb1e91f10ca14f27309a72409f8
+        type: Field
+        label: Field:has_claim
+        is_boundary: false
+      - id: "@project_17"
+        snapshot_hash: 722888cd520691ec92bd8a8a73fb8b54
+        type: Project
+        label: Project
+        is_boundary: false
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+          ClaimAmount: float64
+          PurePremium: float64
+          has_claim: int64
+      - id: "@less_equal_18"
+        snapshot_hash: 8306067d33fceb31d517bf9af4e93a61
+        type: LessEqual
+        label: LessEqual
+        is_boundary: false
+      - id: "@less_19"
+        snapshot_hash: baad577cdb0caae0e2ea3ced930b3126
+        type: Less
+        label: Less
+        is_boundary: false
+      - id: "@project_20"
+        snapshot_hash: ff7eee1a3a4bd568d92a502dfbcea952
+        type: Project
+        label: Project
+        is_boundary: false
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+          ClaimAmount: float64
+      - id: "@field_21"
+        snapshot_hash: fa90afa3a69c70b9150db821df53e1ac
+        type: Field
+        label: Field:IDpol
+        is_boundary: false
+      - id: "@field_22"
+        snapshot_hash: d846b397b6807ac2606a862732f3838c
+        type: Field
+        label: Field:ClaimNb
+        is_boundary: false
+      - id: "@field_23"
+        snapshot_hash: 9ca6d32ae14086a97486a66e1132232b
+        type: Field
+        label: Field:Exposure
+        is_boundary: false
+      - id: "@field_24"
+        snapshot_hash: ae2870d00d3812d46eff41ac9e27bd00
+        type: Field
+        label: Field:Area
+        is_boundary: false
+      - id: "@field_25"
+        snapshot_hash: b3d4515f19528a934b9519222645e30c
+        type: Field
+        label: Field:VehPower
+        is_boundary: false
+      - id: "@field_26"
+        snapshot_hash: 532b0edd860657153aaffe99f73e25c7
+        type: Field
+        label: Field:VehAge
+        is_boundary: false
+      - id: "@field_27"
+        snapshot_hash: 74cfb9337350ed1b0a775ea77bdf9ed3
+        type: Field
+        label: Field:DrivAge
+        is_boundary: false
+      - id: "@field_28"
+        snapshot_hash: 9542b9203790d2da8c549960d88b57c8
+        type: Field
+        label: Field:BonusMalus
+        is_boundary: false
+      - id: "@field_29"
+        snapshot_hash: cb3ea9bc35904b5ae9e4c0cc8392375d
+        type: Field
+        label: Field:VehBrand
+        is_boundary: false
+      - id: "@field_30"
+        snapshot_hash: 5026df134b980a7ced7522e98a4db5a3
+        type: Field
+        label: Field:VehGas
+        is_boundary: false
+      - id: "@field_31"
+        snapshot_hash: f215d5cf46ed7b386ee61706e5f35f49
+        type: Field
+        label: Field:Density
+        is_boundary: false
+      - id: "@field_32"
+        snapshot_hash: 18634e29498de929025a01d66aa09ac3
+        type: Field
+        label: Field:Region
+        is_boundary: false
+      - id: "@field_33"
+        snapshot_hash: 44b58a24dd41f96861bee35bc431fa8a
+        type: Field
+        label: Field:ClaimAmount
+        is_boundary: false
+      - id: "@divide_34"
+        snapshot_hash: 3776989f6bce7bc14b354d8fc311174d
+        type: Divide
+        label: Divide
+        is_boundary: false
+      - id: "@cast_35"
+        snapshot_hash: 9b8fce944e85c46f52b1da264a481189
+        type: Cast
+        label: Cast
+        is_boundary: false
+      - id: "@multiply_36"
+        snapshot_hash: 968311ec0d4acffb01407b0ce12651ec
+        type: Multiply
+        label: Multiply
+        is_boundary: false
+      - id: "@modulus_37"
+        snapshot_hash: 6b4813a655ab24ea7fdb281272e75c86
+        type: Modulus
+        label: Modulus
+        is_boundary: false
+      - id: "@multiply_38"
+        snapshot_hash: de95f18640b3885da4368b7740be3ab6
+        type: Multiply
+        label: Multiply
+        is_boundary: false
+      - id: "@drop_columns_39"
+        snapshot_hash: d6877429e9d82200ab6663fdf6912cb6
+        type: DropColumns
+        label: DropColumns
+        is_boundary: false
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+          ClaimAmount: float64
+      - id: "@field_40"
+        snapshot_hash: 3666dd8e22ec316128382f06a77c3e3a
+        type: Field
+        label: Field:IDpol
+        is_boundary: false
+      - id: "@field_41"
+        snapshot_hash: 7a1ffb715afc1de1fe8712650c92b0c2
+        type: Field
+        label: Field:ClaimNb
+        is_boundary: false
+      - id: "@least_42"
+        snapshot_hash: 991d3f1beca4b3bb52a18b6555eee535
+        type: Least
+        label: Least
+        is_boundary: false
+      - id: "@field_43"
+        snapshot_hash: b9d16d85b4144fce6d5cf5a87482205d
+        type: Field
+        label: Field:Area
+        is_boundary: false
+      - id: "@field_44"
+        snapshot_hash: 311adc2af14c06c6d5c29aeb11ba8d6f
+        type: Field
+        label: Field:VehPower
+        is_boundary: false
+      - id: "@field_45"
+        snapshot_hash: 23d66c2b7e944e759a1234f98204d219
+        type: Field
+        label: Field:VehAge
+        is_boundary: false
+      - id: "@field_46"
+        snapshot_hash: c96f15ced0bb0f8831427c2bde462af5
+        type: Field
+        label: Field:DrivAge
+        is_boundary: false
+      - id: "@field_47"
+        snapshot_hash: 2e9e8d47ca074aedc9cc1bdcff11ea9a
+        type: Field
+        label: Field:BonusMalus
+        is_boundary: false
+      - id: "@field_48"
+        snapshot_hash: a9bcffccc85b700254115c2441ff2250
+        type: Field
+        label: Field:VehBrand
+        is_boundary: false
+      - id: "@field_49"
+        snapshot_hash: 1c0b82580280a718b5bb32b9e50a69a5
+        type: Field
+        label: Field:VehGas
+        is_boundary: false
+      - id: "@field_50"
+        snapshot_hash: 97ce0b641bfed1ecd3c91780ca8fe227
+        type: Field
+        label: Field:Density
+        is_boundary: false
+      - id: "@field_51"
+        snapshot_hash: 5da29664facf9a9b3763a66d86aa5ad4
+        type: Field
+        label: Field:Region
+        is_boundary: false
+      - id: "@least_52"
+        snapshot_hash: 48faad966dd11301f81be782f64265ff
+        type: Least
+        label: Least
+        is_boundary: false
+      - id: "@greater_53"
+        snapshot_hash: 606f4bb3870448c842477d9b8a8dc9cd
+        type: Greater
+        label: Greater
+        is_boundary: false
+      - id: "@cast_54"
+        snapshot_hash: 71f42729031169ddd49198414b495e9a
+        type: Cast
+        label: Cast
+        is_boundary: false
+      - id: "@literal_55"
+        snapshot_hash: 70a6777c33a6f226958032cb9994dda9
+        type: Literal
+        label: "Literal: 100000"
+        is_boundary: false
+      - id: "@abs_56"
+        snapshot_hash: 6a2ea9be10b68707765246614337c399
+        type: Abs
+        label: Abs
+        is_boundary: false
+      - id: "@cast_57"
+        snapshot_hash: 8f5c62a475e457d07d3adb4844533796
+        type: Cast
+        label: Cast
+        is_boundary: false
+      - id: "@join_chain_58"
+        snapshot_hash: f829aa44095f7a48fcc9c5d128f9d3e1
+        type: JoinChain
+        label: JoinChain
+        is_boundary: true
+        boundary_kind: join
+        n_inputs: 2
+        predicates_summary: "left: IDpol == IDpol"
+        backend: xorq_datafusion
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+          IDpol_right: float64
+          ClaimAmount: float64
+      - id: "@field_59"
+        snapshot_hash: ddf511c733e8e536809b23aa7cc70883
+        type: Field
+        label: Field:Exposure
+        is_boundary: false
+      - id: "@literal_60"
+        snapshot_hash: 775d42481983730e3a4da01e1e0a3d7a
+        type: Literal
+        label: "Literal: 1.0"
+        is_boundary: false
+      - id: "@coalesce_61"
+        snapshot_hash: 959168790cc277ec12bd2692049841d7
+        type: Coalesce
+        label: Coalesce
+        is_boundary: false
+      - id: "@literal_62"
+        snapshot_hash: 7cd550d2556041fc9745441b7c736d25
+        type: Literal
+        label: "Literal: 200000.0"
+        is_boundary: false
+      - id: "@literal_63"
+        snapshot_hash: 304d556ef9317f29d4f41ff891a414c3
+        type: Literal
+        label: "Literal: 0"
+        is_boundary: false
+      - id: "@hash_64"
+        snapshot_hash: a77b733c78a1b23b329d2601b23abf1b
+        type: Hash
+        label: Hash
+        is_boundary: false
+      - id: "@literal_65"
+        snapshot_hash: e6d76dcd399a0469ee3dae1beaa5820d
+        type: Literal
+        label: "Literal: 0.045"
+        is_boundary: false
+      - id: "@join_reference_66"
+        snapshot_hash: 3e11eda4e893493152c77308a4fc4b9f
+        type: JoinReference
+        label: JoinReference
+        is_boundary: false
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+      - id: "@join_link_67"
+        snapshot_hash: d005962a97acf657b66f656a8389ed90
+        type: JoinLink
+        label: JoinLink
+        is_boundary: false
+      - id: "@field_68"
+        snapshot_hash: f74aa2d0714ba36c97c95a3355e0cb0d
+        type: Field
+        label: Field:IDpol
+        is_boundary: false
+      - id: "@field_69"
+        snapshot_hash: 5eb7781a480a485de89ff1d10e444c98
+        type: Field
+        label: Field:ClaimNb
+        is_boundary: false
+      - id: "@field_70"
+        snapshot_hash: fae04fac98c59b0351358184f1cfd8a8
+        type: Field
+        label: Field:Exposure
+        is_boundary: false
+      - id: "@field_71"
+        snapshot_hash: ce833c4ed7f2b9f35576efc94f29c42f
+        type: Field
+        label: Field:Area
+        is_boundary: false
+      - id: "@field_72"
+        snapshot_hash: 46f76f201cdb27e21bf7b526a799bfbd
+        type: Field
+        label: Field:VehPower
+        is_boundary: false
+      - id: "@field_73"
+        snapshot_hash: 741f0b7d1cff220911de6cb9c58649b6
+        type: Field
+        label: Field:VehAge
+        is_boundary: false
+      - id: "@field_74"
+        snapshot_hash: fe8bbd170ad5903841b811b4421c5423
+        type: Field
+        label: Field:DrivAge
+        is_boundary: false
+      - id: "@field_75"
+        snapshot_hash: 7d2ebd084b81b273617c06623b30d92f
+        type: Field
+        label: Field:BonusMalus
+        is_boundary: false
+      - id: "@field_76"
+        snapshot_hash: f6f6919246fa3ec63e06aeac12c14b43
+        type: Field
+        label: Field:VehBrand
+        is_boundary: false
+      - id: "@field_77"
+        snapshot_hash: 8ede336676be0ed85bc8840915291d62
+        type: Field
+        label: Field:VehGas
+        is_boundary: false
+      - id: "@field_78"
+        snapshot_hash: 0afea9e004871f1bc98c8d62b1e75ac3
+        type: Field
+        label: Field:Density
+        is_boundary: false
+      - id: "@field_79"
+        snapshot_hash: 3f37b299e5ba1cd703685626bd902490
+        type: Field
+        label: Field:Region
+        is_boundary: false
+      - id: "@field_80"
+        snapshot_hash: 096592ffa07aae4aed68023ccc74879b
+        type: Field
+        label: Field:IDpol
+        is_boundary: false
+      - id: "@field_81"
+        snapshot_hash: 29e67ab6a7bfe6fa4878e63cab8aa61f
+        type: Field
+        label: Field:ClaimAmount
+        is_boundary: false
+      - id: "@field_82"
+        snapshot_hash: 7c14b747b7330c58fc007d052cb5f6dd
+        type: Field
+        label: Field:ClaimAmount
+        is_boundary: false
+      - id: "@literal_83"
+        snapshot_hash: 535a59ac9f74425e40ef4969ab843d42
+        type: Literal
+        label: "Literal: 0.0"
+        is_boundary: false
+      - id: "@alias_84"
+        snapshot_hash: 51c96075b7f46b3497a82cfd3ffba960
+        type: Alias
+        label: Alias
+        is_boundary: false
+      - id: "@cached_node_85"
+        snapshot_hash: 41a9e65ad18192be308daaeb951e1ff8
+        type: CachedNode
+        label: Cache[cache] xorq_cached_node_name_placeholder
+        is_boundary: true
+        boundary_kind: cache
+        backend: xorq_datafusion
+        cache_kind: ParquetCache
+        cache_path: parquet
+        cache_key_prefix: xorq_cache-
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+      - id: "@join_reference_86"
+        snapshot_hash: 27cfa338a3f6fb7330a661f3e0d9df2c
+        type: JoinReference
+        label: JoinReference
+        is_boundary: false
+        schema:
+          IDpol: float64
+          ClaimAmount: float64
+      - id: "@equals_87"
+        snapshot_hash: 661f77c59154df0d34f2c0457b70b1e2
+        type: Equals
+        label: Equals
+        is_boundary: false
+      - id: "@string_concat_88"
+        snapshot_hash: c77bd804dd5b2de2d37a57aafeb8c9e2
+        type: StringConcat
+        label: StringConcat
+        is_boundary: false
+      - id: "@read_89"
+        snapshot_hash: 20674eabc9bec6effcf135f32d3ea69a
+        type: Read
+        label: Read
+        is_boundary: true
+        boundary_kind: ingestion
+        backend: xorq_datafusion
+        read_kind: read_parquet
+        format: parquet
+        path_or_uri: https://data.openml.org/datasets/0004/41214/dataset_41214.pq
+        read_kwargs:
+          hash_path: https://data.openml.org/datasets/0004/41214/dataset_41214.pq
+          table_name: openml_41214
+        schema:
+          IDpol: float64
+          ClaimNb: uint8
+          Exposure: float64
+          Area: string
+          VehPower: uint8
+          VehAge: uint8
+          DrivAge: uint8
+          BonusMalus: uint8
+          VehBrand: string
+          VehGas: string
+          Density: float64
+          Region: string
+      - id: "@aggregate_90"
+        snapshot_hash: ab9a3475dfcda097cb71a75abdb1d280
+        type: Aggregate
+        label: Aggregate
+        is_boundary: false
+        schema:
+          IDpol: float64
+          ClaimAmount: float64
+      - id: "@string_join_91"
+        snapshot_hash: acede67ecc3fd726c6c0da306f882dbb
+        type: StringJoin
+        label: StringJoin
+        is_boundary: false
+      - id: "@literal_92"
+        snapshot_hash: 45fb585b1c6f43243a9e6cd8efe45be0
+        type: Literal
+        label: >-
+          Literal:
+          16157387885063800092468972531095442600227637936690303362357377535130907802013
+        is_boundary: false
+      - id: "@cached_node_93"
+        snapshot_hash: bba64fe599f160cf9d08c1d2d52e1f80
+        type: CachedNode
+        label: Cache[cache] xorq_cached_node_name_placeholder
+        is_boundary: true
+        boundary_kind: cache
+        backend: xorq_datafusion
+        cache_kind: ParquetCache
+        cache_path: parquet
+        cache_key_prefix: xorq_cache-
+        schema:
+          IDpol: float64
+          ClaimAmount: float64
+      - id: "@field_94"
+        snapshot_hash: 18e31a9656e2148558f653c6ae64d2f5
+        type: Field
+        label: Field:IDpol
+        is_boundary: false
+      - id: "@sum_95"
+        snapshot_hash: 2675d3ebae233c6026edd47c38629fb5
+        type: Sum
+        label: Sum
+        is_boundary: false
+      - id: "@cast_96"
+        snapshot_hash: f9f3aa1774880086f9b49ed852992ac4
+        type: Cast
+        label: Cast
+        is_boundary: false
+      - id: "@literal_97"
+        snapshot_hash: f6d7f43c76bb79fa558fc66a961d0146
+        type: Literal
+        label: "Literal: ,"
+        is_boundary: false
+      - id: "@read_98"
+        snapshot_hash: 0cb92ad4de577b4305034107ebaa07b8
+        type: Read
+        label: Read
+        is_boundary: true
+        boundary_kind: ingestion
+        backend: xorq_datafusion
+        read_kind: read_parquet
+        format: parquet
+        path_or_uri: https://data.openml.org/datasets/0004/41215/dataset_41215.pq
+        read_kwargs:
+          hash_path: https://data.openml.org/datasets/0004/41215/dataset_41215.pq
+          table_name: openml_41215
+        schema:
+          IDpol: float64
+          ClaimAmount: float64
+      - id: "@field_99"
+        snapshot_hash: bd0601814709ce14b8415d9cf1196fa4
+        type: Field
+        label: Field:ClaimAmount
+        is_boundary: false
+      - id: "@field_100"
+        snapshot_hash: 93f066f162acef604badf4d695327c57
+        type: Field
+        label: Field:IDpol
+        is_boundary: false
+    edges:
+      - from: "@cached_node_1"
+        to: "@aggregate_2"
+        scope: root
+      - from: "@aggregate_2"
+        to: "@tag_3"
+        scope: root
+      - from: "@aggregate_2"
+        to: "@dumps_of__inner_fit_0_4"
+        scope: root
+      - from: "@tag_3"
+        to: "@filter_5"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_6"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_7"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_8"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_9"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_10"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_11"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_12"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_13"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_14"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_15"
+        scope: root
+      - from: "@dumps_of__inner_fit_0_4"
+        to: "@field_16"
+        scope: root
+      - from: "@filter_5"
+        to: "@project_17"
+        scope: root
+      - from: "@filter_5"
+        to: "@less_equal_18"
+        scope: root
+      - from: "@filter_5"
+        to: "@less_19"
+        scope: root
+      - from: "@field_6"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_7"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_8"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_9"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_10"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_11"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_12"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_13"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_14"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_15"
+        to: "@tag_3"
+        scope: root
+      - from: "@field_16"
+        to: "@tag_3"
+        scope: root
+      - from: "@project_17"
+        to: "@project_20"
+        scope: root
+      - from: "@project_17"
+        to: "@field_21"
+        scope: root
+      - from: "@project_17"
+        to: "@field_22"
+        scope: root
+      - from: "@project_17"
+        to: "@field_23"
+        scope: root
+      - from: "@project_17"
+        to: "@field_24"
+        scope: root
+      - from: "@project_17"
+        to: "@field_25"
+        scope: root
+      - from: "@project_17"
+        to: "@field_26"
+        scope: root
+      - from: "@project_17"
+        to: "@field_27"
+        scope: root
+      - from: "@project_17"
+        to: "@field_28"
+        scope: root
+      - from: "@project_17"
+        to: "@field_29"
+        scope: root
+      - from: "@project_17"
+        to: "@field_30"
+        scope: root
+      - from: "@project_17"
+        to: "@field_31"
+        scope: root
+      - from: "@project_17"
+        to: "@field_32"
+        scope: root
+      - from: "@project_17"
+        to: "@field_33"
+        scope: root
+      - from: "@project_17"
+        to: "@divide_34"
+        scope: root
+      - from: "@project_17"
+        to: "@cast_35"
+        scope: root
+      - from: "@less_equal_18"
+        to: "@multiply_36"
+        scope: root
+      - from: "@less_equal_18"
+        to: "@modulus_37"
+        scope: root
+      - from: "@less_19"
+        to: "@modulus_37"
+        scope: root
+      - from: "@less_19"
+        to: "@multiply_38"
+        scope: root
+      - from: "@project_20"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@project_20"
+        to: "@field_40"
+        scope: root
+      - from: "@project_20"
+        to: "@field_41"
+        scope: root
+      - from: "@project_20"
+        to: "@least_42"
+        scope: root
+      - from: "@project_20"
+        to: "@field_43"
+        scope: root
+      - from: "@project_20"
+        to: "@field_44"
+        scope: root
+      - from: "@project_20"
+        to: "@field_45"
+        scope: root
+      - from: "@project_20"
+        to: "@field_46"
+        scope: root
+      - from: "@project_20"
+        to: "@field_47"
+        scope: root
+      - from: "@project_20"
+        to: "@field_48"
+        scope: root
+      - from: "@project_20"
+        to: "@field_49"
+        scope: root
+      - from: "@project_20"
+        to: "@field_50"
+        scope: root
+      - from: "@project_20"
+        to: "@field_51"
+        scope: root
+      - from: "@project_20"
+        to: "@least_52"
+        scope: root
+      - from: "@field_21"
+        to: "@project_20"
+        scope: root
+      - from: "@field_22"
+        to: "@project_20"
+        scope: root
+      - from: "@field_23"
+        to: "@project_20"
+        scope: root
+      - from: "@field_24"
+        to: "@project_20"
+        scope: root
+      - from: "@field_25"
+        to: "@project_20"
+        scope: root
+      - from: "@field_26"
+        to: "@project_20"
+        scope: root
+      - from: "@field_27"
+        to: "@project_20"
+        scope: root
+      - from: "@field_28"
+        to: "@project_20"
+        scope: root
+      - from: "@field_29"
+        to: "@project_20"
+        scope: root
+      - from: "@field_30"
+        to: "@project_20"
+        scope: root
+      - from: "@field_31"
+        to: "@project_20"
+        scope: root
+      - from: "@field_32"
+        to: "@project_20"
+        scope: root
+      - from: "@field_33"
+        to: "@project_20"
+        scope: root
+      - from: "@divide_34"
+        to: "@field_33"
+        scope: root
+      - from: "@divide_34"
+        to: "@field_23"
+        scope: root
+      - from: "@cast_35"
+        to: "@greater_53"
+        scope: root
+      - from: "@multiply_36"
+        to: "@cast_54"
+        scope: root
+      - from: "@multiply_36"
+        to: "@literal_55"
+        scope: root
+      - from: "@modulus_37"
+        to: "@abs_56"
+        scope: root
+      - from: "@modulus_37"
+        to: "@literal_55"
+        scope: root
+      - from: "@multiply_38"
+        to: "@cast_57"
+        scope: root
+      - from: "@multiply_38"
+        to: "@literal_55"
+        scope: root
+      - from: "@drop_columns_39"
+        to: "@join_chain_58"
+        scope: root
+      - from: "@field_40"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_41"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@least_42"
+        to: "@field_59"
+        scope: root
+      - from: "@least_42"
+        to: "@literal_60"
+        scope: root
+      - from: "@field_43"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_44"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_45"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_46"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_47"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_48"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_49"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_50"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@field_51"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@least_52"
+        to: "@coalesce_61"
+        scope: root
+      - from: "@least_52"
+        to: "@literal_62"
+        scope: root
+      - from: "@greater_53"
+        to: "@field_33"
+        scope: root
+      - from: "@greater_53"
+        to: "@literal_63"
+        scope: root
+      - from: "@cast_54"
+        to: "@literal_63"
+        scope: root
+      - from: "@abs_56"
+        to: "@hash_64"
+        scope: root
+      - from: "@cast_57"
+        to: "@literal_65"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@join_link_67"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_68"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_69"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_70"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_71"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_72"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_73"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_74"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_75"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_76"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_77"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_78"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_79"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_80"
+        scope: root
+      - from: "@join_chain_58"
+        to: "@field_81"
+        scope: root
+      - from: "@field_59"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@coalesce_61"
+        to: "@field_82"
+        scope: root
+      - from: "@coalesce_61"
+        to: "@literal_83"
+        scope: root
+      - from: "@hash_64"
+        to: "@alias_84"
+        scope: root
+      - from: "@join_reference_66"
+        to: "@cached_node_85"
+        scope: root
+      - from: "@join_link_67"
+        to: "@join_reference_86"
+        scope: root
+      - from: "@join_link_67"
+        to: "@equals_87"
+        scope: root
+      - from: "@field_68"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_69"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_70"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_71"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_72"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_73"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_74"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_75"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_76"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_77"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_78"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_79"
+        to: "@join_reference_66"
+        scope: root
+      - from: "@field_80"
+        to: "@join_reference_86"
+        scope: root
+      - from: "@field_81"
+        to: "@join_reference_86"
+        scope: root
+      - from: "@field_82"
+        to: "@drop_columns_39"
+        scope: root
+      - from: "@alias_84"
+        to: "@string_concat_88"
+        scope: root
+      - from: "@cached_node_85"
+        to: "@read_89"
+        scope: root
+      - from: "@join_reference_86"
+        to: "@aggregate_90"
+        scope: root
+      - from: "@equals_87"
+        to: "@field_68"
+        scope: root
+      - from: "@equals_87"
+        to: "@field_80"
+        scope: root
+      - from: "@string_concat_88"
+        to: "@string_join_91"
+        scope: root
+      - from: "@string_concat_88"
+        to: "@literal_92"
+        scope: root
+      - from: "@aggregate_90"
+        to: "@cached_node_93"
+        scope: root
+      - from: "@aggregate_90"
+        to: "@field_94"
+        scope: root
+      - from: "@aggregate_90"
+        to: "@sum_95"
+        scope: root
+      - from: "@string_join_91"
+        to: "@cast_96"
+        scope: root
+      - from: "@string_join_91"
+        to: "@literal_97"
+        scope: root
+      - from: "@cached_node_93"
+        to: "@read_98"
+        scope: root
+      - from: "@field_94"
+        to: "@cached_node_93"
+        scope: root
+      - from: "@sum_95"
+        to: "@field_99"
+        scope: root
+      - from: "@cast_96"
+        to: "@field_100"
+        scope: root
+      - from: "@field_99"
+        to: "@cached_node_93"
+        scope: root
+      - from: "@field_100"
+        to: "@project_17"
+        scope: root
+    overlays: {}

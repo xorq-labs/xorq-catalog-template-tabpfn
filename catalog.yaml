@@ -5,6 +5,7 @@ entries:
   - e67d6bd507a1
   - 5d42b2ee2c2d
   - 54299124af55
+  - 67bca2a55262
 aliases:
   - tabpfn-insurance
   - policies
@@ -12,3 +13,4 @@ aliases:
   - calibration-slice
   - test-slice
   - calibration-staged
+  - claim-model
