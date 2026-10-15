@@ -4,9 +4,11 @@ entries:
   - b11f1fe6fa35
   - e67d6bd507a1
   - 5d42b2ee2c2d
+  - 54299124af55
 aliases:
   - tabpfn-insurance
   - policies
   - fit-slice
   - calibration-slice
   - test-slice
+  - calibration-staged
