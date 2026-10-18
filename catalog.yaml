@@ -8,6 +8,7 @@ entries:
   - 0e5cdb7bb76d
   - 977c8d463c7c
   - 1bef48445604
+  - 8647dccdcbaa
 aliases:
   - tabpfn-insurance
   - policies
@@ -18,3 +19,4 @@ aliases:
   - claim-model
   - severity-model
   - calibration-model
+  - tabpfn-scorer
