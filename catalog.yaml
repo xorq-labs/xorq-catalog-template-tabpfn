@@ -1,4 +1,22 @@
 entries:
-  - caf37c092526
+  - bec90e687291
+  - b044b5f8694b
+  - 3525d12afd20
+  - 4b754257cb7f
+  - 748fa012b9a0
+  - 4ad949fe605b
+  - 0e5cdb7bb76d
+  - 977c8d463c7c
+  - 1bef48445604
+  - 8647dccdcbaa
 aliases:
   - tabpfn-insurance
+  - policies
+  - fit-slice
+  - calibration-slice
+  - test-slice
+  - calibration-staged
+  - claim-model
+  - severity-model
+  - calibration-model
+  - tabpfn-scorer

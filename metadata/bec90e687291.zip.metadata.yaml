@@ -1,4 +1,4 @@
-md5sum: 3191016a5ee7366af53f1e893042074e
+md5sum: 839887cedb31ed5743f11633ff5f4878
 backends:
   - xorq_datafusion
 expr_metadata:
@@ -26,7 +26,7 @@ expr_metadata:
     premium_calibrated: float64
   root_tag: train_test_split
   cache_keys:
-    key: xorq_cache-snapshot-ada5a1af410204f7011ebb57f6730eb1
+    key: xorq_cache-snapshot-8a2a9ca77cfd69b11e2eda4a8ad4a1a2
     relative_path: parquet
   sql_queries:
     - - main
@@ -52,7 +52,7 @@ expr_metadata:
           "t1"."p_claim",
           "t1"."severity",
           "t1"."p_claim" * "t1"."severity" AS "premium",
-          _PREDICT_CALIBRATED_A1090DD95C03("t1"."p_claim", "t1"."severity", "t1"."Exposure") AS "premium_calibrated"
+          _PREDICT_CALIBRATED_206791B6C090("t1"."p_claim", "t1"."severity", "t1"."Exposure") AS "premium_calibrated"
         FROM (
           SELECT
             "t0"."IDpol",
@@ -72,7 +72,7 @@ expr_metadata:
             "t0"."has_claim",
             "t0"."Exposure" AS "observed_exposure",
             ARRAY_ELEMENT(
-              _PREDICT_PROBA_CLAIM_75F05105C6A2(
+              _PREDICT_PROBA_CLAIM_F992FAEF00D7(
                 "t0"."VehAge",
                 "t0"."DrivAge",
                 "t0"."VehBrand",
@@ -86,7 +86,7 @@ expr_metadata:
               ),
               1 + CAST(1 >= 0 AS SMALLINT)
             ) AS "p_claim",
-            _PREDICT_SEVERITY_A1090DD95C03(
+            _PREDICT_SEVERITY_206791B6C090(
               "t0"."VehAge",
               "t0"."DrivAge",
               "t0"."VehBrand",
@@ -126,7 +126,7 @@ expr_metadata:
     root: "@cached_node_1"
     nodes:
       - id: "@cached_node_1"
-        snapshot_hash: f971378a2e12e5fbd0c8e6136b4d07a8
+        snapshot_hash: 584f427b0ee8a92598e85efa536b7519
         type: CachedNode
         label: "Cache[cache] xorq_cached_node_name_placeholder"
         is_boundary: true
@@ -157,7 +157,7 @@ expr_metadata:
           premium: float64
           premium_calibrated: float64
       - id: "@project_2"
-        snapshot_hash: bac9fb8d3b0f4155b6bf2e17fc33fe1f
+        snapshot_hash: bd0c59bd12f87c52207bfdaaa6ff48a8
         type: Project
         label: Project
         is_boundary: false
@@ -183,7 +183,7 @@ expr_metadata:
           premium: float64
           premium_calibrated: float64
       - id: "@project_3"
-        snapshot_hash: c4dd1a14adc6abca8c94467038674e2a
+        snapshot_hash: 6564d8f113bb20c4dad5d3d7c09c36d1
         type: Project
         label: Project
         is_boundary: false
@@ -208,114 +208,114 @@ expr_metadata:
           severity: float64
           premium: float64
       - id: "@field_4"
-        snapshot_hash: 6dbe2c32df285a0a35a831b0c38db189
+        snapshot_hash: 3bd1b27906c00323d5f37b46d365642d
         type: Field
         label: "Field:IDpol"
         is_boundary: false
       - id: "@field_5"
-        snapshot_hash: ed331e14e042bc43f8b1be838735ecef
+        snapshot_hash: 56f13f6ab55304cf878252775d99fe1f
         type: Field
         label: "Field:ClaimNb"
         is_boundary: false
       - id: "@field_6"
-        snapshot_hash: 0d6ebb1ed4114d2fc4aae08828b03ffa
+        snapshot_hash: 76af696638e0923bd0c60abcb41f4ad0
         type: Field
         label: "Field:Exposure"
         is_boundary: false
       - id: "@field_7"
-        snapshot_hash: 4c92209de8aa2644d620b2a072c7a565
+        snapshot_hash: cb7602cbfc883c0c9bdaa775916848c9
         type: Field
         label: "Field:Area"
         is_boundary: false
       - id: "@field_8"
-        snapshot_hash: 680cdcdafccdee7a5f4db468c0522516
+        snapshot_hash: 60378da89055b60406bf5b50c01b6eb5
         type: Field
         label: "Field:VehPower"
         is_boundary: false
       - id: "@field_9"
-        snapshot_hash: 82bd6588b34cb2f612ee553f96f622a1
+        snapshot_hash: 2ac5cee022f20e114efe919b622a53fe
         type: Field
         label: "Field:VehAge"
         is_boundary: false
       - id: "@field_10"
-        snapshot_hash: 7b83d9dd2a8040d11ac79d0f4a8eaa0f
+        snapshot_hash: 149d3d75d095b11824c6bca0a4a38454
         type: Field
         label: "Field:DrivAge"
         is_boundary: false
       - id: "@field_11"
-        snapshot_hash: fd5370543401d073eb891c14591d9ce7
+        snapshot_hash: c7fefd1cbd0f41512fbe286667a50b1b
         type: Field
         label: "Field:BonusMalus"
         is_boundary: false
       - id: "@field_12"
-        snapshot_hash: 27962abebe4a60fe62721bb63a1fa474
+        snapshot_hash: dff33e85211a6afc66246416ed84fe08
         type: Field
         label: "Field:VehBrand"
         is_boundary: false
       - id: "@field_13"
-        snapshot_hash: 34f4876c99caa9f0afc78ee1216c120b
+        snapshot_hash: a358570d2de1b2c664ad7e1d89140a7f
         type: Field
         label: "Field:VehGas"
         is_boundary: false
       - id: "@field_14"
-        snapshot_hash: 72484ffae278505546d4ae1b218f02d4
+        snapshot_hash: ef337d4f40d642b8d556a1a303d10401
         type: Field
         label: "Field:Density"
         is_boundary: false
       - id: "@field_15"
-        snapshot_hash: d21a016ef8e090d21f0a2614a61767f3
+        snapshot_hash: 95cc3ab4e8c92e5810ce79ba7b571234
         type: Field
         label: "Field:Region"
         is_boundary: false
       - id: "@field_16"
-        snapshot_hash: 6a1e245637939152ed9dc6e5aa7f7c65
+        snapshot_hash: 61895e68caf8d942faa9885ae9037b23
         type: Field
         label: "Field:ClaimAmount"
         is_boundary: false
       - id: "@field_17"
-        snapshot_hash: 6205fd7559c0f1b4ec13313ac4ad4bdb
+        snapshot_hash: f321ebbabf475b9d7392b78837e522b9
         type: Field
         label: "Field:PurePremium"
         is_boundary: false
       - id: "@field_18"
-        snapshot_hash: ca59e1c6756466ed72d7d5647558626d
+        snapshot_hash: f6a0577f6a09cb14ea9da2a1c0f3e8ca
         type: Field
         label: "Field:has_claim"
         is_boundary: false
       - id: "@field_19"
-        snapshot_hash: 523b30d83d018046e7f35cc89201afb6
+        snapshot_hash: 42f00fdfd6fff49feefa3c09828c7ce1
         type: Field
         label: "Field:observed_exposure"
         is_boundary: false
       - id: "@field_20"
-        snapshot_hash: a25eea65b6ba823301cbbb7ec1ed5515
+        snapshot_hash: 1aeaa0331683705b3908d888f9d23786
         type: Field
         label: "Field:p_claim"
         is_boundary: false
       - id: "@field_21"
-        snapshot_hash: cd85541a50be5f93e9798135330ab558
+        snapshot_hash: bc7ad7bc3831c7e2fb83abebef93b0e2
         type: Field
         label: "Field:severity"
         is_boundary: false
       - id: "@field_22"
-        snapshot_hash: a014eae8586656b1324eb2397bd5e71f
+        snapshot_hash: c15a7a49aec855747b4650ec5435879d
         type: Field
         label: "Field:premium"
         is_boundary: false
-      - id: "@predict_calibrated_a1090dd95c03_23"
-        snapshot_hash: e1d88c5fc82489d15eb152874ecb3a1a
-        type: _predict_calibrated_a1090dd95c03
+      - id: "@predict_calibrated_206791b6c090_23"
+        snapshot_hash: 00f870b94fc208fba78f71aa17dcc56f
+        type: _predict_calibrated_206791b6c090
         label: ExprScalarUDF
         is_boundary: true
         boundary_kind: udf
-        udf_name: _predict_calibrated_a1090dd95c03
+        udf_name: _predict_calibrated_206791b6c090
         udf_signature: "inputs: [float64, float64, float64] -> output: float64"
         schema:
           p_claim: float64
           severity: float64
           Exposure: float64
       - id: "@project_24"
-        snapshot_hash: cc255aa9585f73e4bbe56416fe108238
+        snapshot_hash: 125aaf8dd31c7eee89ae8cd8c972d861
         type: Project
         label: Project
         is_boundary: false
@@ -339,102 +339,102 @@ expr_metadata:
           p_claim: float64
           severity: float64
       - id: "@field_25"
-        snapshot_hash: a38eb5522e3218b899156f05c57d3301
+        snapshot_hash: f13e410cb80f33c42dce6ef9d25737cd
         type: Field
         label: "Field:IDpol"
         is_boundary: false
       - id: "@field_26"
-        snapshot_hash: efcf8519aee6cb228d0fdf4a0893663d
+        snapshot_hash: abaacd94de9c4cc846cdfe02b1ea71e4
         type: Field
         label: "Field:ClaimNb"
         is_boundary: false
       - id: "@field_27"
-        snapshot_hash: 8b6be7f4b9fa11c8e6e4783236b9b57e
+        snapshot_hash: cdb578a95eafca8e93c59d982b9fca7c
         type: Field
         label: "Field:Exposure"
         is_boundary: false
       - id: "@field_28"
-        snapshot_hash: ae8d1c63bc7c563d50a30c7978bc10c8
+        snapshot_hash: b850014f1c0db48255aa8b7d6cdb7488
         type: Field
         label: "Field:Area"
         is_boundary: false
       - id: "@field_29"
-        snapshot_hash: 3699ee86c645a29e667109e5b3839a2b
+        snapshot_hash: acf96a2cf488ca5733700ab980a05904
         type: Field
         label: "Field:VehPower"
         is_boundary: false
       - id: "@field_30"
-        snapshot_hash: 23830657836bac8d1c7b566789519d3e
+        snapshot_hash: ecc0c0d55ac197d9eb64aa14ef970911
         type: Field
         label: "Field:VehAge"
         is_boundary: false
       - id: "@field_31"
-        snapshot_hash: a48a7441e30c5c6e53082727db05ad4e
+        snapshot_hash: 38cb078bcf11b2be08ff765c61acbafc
         type: Field
         label: "Field:DrivAge"
         is_boundary: false
       - id: "@field_32"
-        snapshot_hash: 933a671ba6668f11c2ef6fb531cc98ef
+        snapshot_hash: 68aa63bce00ae848af2bdf647de5d700
         type: Field
         label: "Field:BonusMalus"
         is_boundary: false
       - id: "@field_33"
-        snapshot_hash: 7b4aba318d1add787d6f0cbe324028f4
+        snapshot_hash: 1d7e18e06f3bb73d13eae1c4e953f111
         type: Field
         label: "Field:VehBrand"
         is_boundary: false
       - id: "@field_34"
-        snapshot_hash: caec5dea1d30b30d68657b2124fc8314
+        snapshot_hash: dd52cff805366448b5220adcb4e7d975
         type: Field
         label: "Field:VehGas"
         is_boundary: false
       - id: "@field_35"
-        snapshot_hash: 43f86ab27d605eb649257375bda7b082
+        snapshot_hash: 2d75bbf42496c047228745effccf94de
         type: Field
         label: "Field:Density"
         is_boundary: false
       - id: "@field_36"
-        snapshot_hash: eb3a5e9eafa42d6df47d600305baf943
+        snapshot_hash: 26328a3feb8bdaa64f4c1041c248768f
         type: Field
         label: "Field:Region"
         is_boundary: false
       - id: "@field_37"
-        snapshot_hash: 28eee39c17f1bd1d095ef297e22b6608
+        snapshot_hash: 18e4a7d6a104fd0f6d2972e187d81ccb
         type: Field
         label: "Field:ClaimAmount"
         is_boundary: false
       - id: "@field_38"
-        snapshot_hash: d98ec97bf9536f4aa3a350371bdea6d7
+        snapshot_hash: e73af55c4b120da31a98a80ba5dfe398
         type: Field
         label: "Field:PurePremium"
         is_boundary: false
       - id: "@field_39"
-        snapshot_hash: 84cd95e635b990f8850d2bf9f97a2dee
+        snapshot_hash: 97c8f62811b63db645bbeb8908fa4fdb
         type: Field
         label: "Field:has_claim"
         is_boundary: false
       - id: "@field_40"
-        snapshot_hash: 6f661a96afbcbc5564d38c2a7a3209da
+        snapshot_hash: e3e40d91df8fc6e878d2fabbdda060a5
         type: Field
         label: "Field:observed_exposure"
         is_boundary: false
       - id: "@field_41"
-        snapshot_hash: e3c7c24f54231603e209896d3ede9a16
+        snapshot_hash: 6a8ca36cb7751035239080298c2dbe80
         type: Field
         label: "Field:p_claim"
         is_boundary: false
       - id: "@field_42"
-        snapshot_hash: f569f326589a1fd085ea3675de45074c
+        snapshot_hash: 536228370f8555f5f72440b453339808
         type: Field
         label: "Field:severity"
         is_boundary: false
       - id: "@multiply_43"
-        snapshot_hash: 6caca69d2ba5a58cb063f2089fb7838a
+        snapshot_hash: d618e6f950741b33a544b517900b5748
         type: Multiply
         label: Multiply
         is_boundary: false
       - id: "@cached_node_44"
-        snapshot_hash: 96640b015427adca35ce80432534bd4e
+        snapshot_hash: c39ba7dcd803b0a0e5c296243586fa23
         type: CachedNode
         label: "Cache[cache] xorq_cached_node_name_placeholder"
         is_boundary: true
@@ -548,17 +548,17 @@ expr_metadata:
         label: "Field:observed_exposure"
         is_boundary: false
       - id: "@array_index_62"
-        snapshot_hash: 17dfc241c510d00a964f711e3e6d05a8
+        snapshot_hash: 9c2ce6fdfd853a874b5102da22172109
         type: ArrayIndex
         label: ArrayIndex
         is_boundary: false
-      - id: "@predict_severity_a1090dd95c03_63"
-        snapshot_hash: 19f8a944764e8382e171ce753344cd08
-        type: _predict_severity_a1090dd95c03
+      - id: "@predict_severity_206791b6c090_63"
+        snapshot_hash: 25eaf7f91d0b6133d6e395c3f4726b23
+        type: _predict_severity_206791b6c090
         label: ExprScalarUDF
         is_boundary: true
         boundary_kind: udf
-        udf_name: _predict_severity_a1090dd95c03
+        udf_name: _predict_severity_206791b6c090
         udf_signature: "inputs: [uint8, uint8, string, uint8, string, string, string, uint8, float64, float64] -> output: float64"
         schema:
           VehAge: uint8
@@ -572,7 +572,7 @@ expr_metadata:
           Density: float64
           Exposure: float64
       - id: "@aggregate_64"
-        snapshot_hash: 187dee0e4949be64d77858e8cc453d81
+        snapshot_hash: cee5ca29021f5f6b90019dda94e5b5ed
         type: Aggregate
         label: Aggregate
         is_boundary: false
@@ -680,13 +680,13 @@ expr_metadata:
         type: Field
         label: "Field:observed_exposure"
         is_boundary: false
-      - id: "@predict_proba_claim_75f05105c6a2_82"
-        snapshot_hash: 6de066e037a01b2af4b9f6ce9a19c180
-        type: _predict_proba_claim_75f05105c6a2
+      - id: "@predict_proba_claim_f992faef00d7_82"
+        snapshot_hash: 51e171e1f9d72f939f3a60c41b6657cf
+        type: _predict_proba_claim_f992faef00d7
         label: ExprScalarUDF
         is_boundary: true
         boundary_kind: udf
-        udf_name: _predict_proba_claim_75f05105c6a2
+        udf_name: _predict_proba_claim_f992faef00d7
         udf_signature: "inputs: [uint8, uint8, string, uint8, string, string, string, uint8, float64, float64] -> output: array<float64>"
         schema:
           VehAge: uint8
@@ -705,7 +705,7 @@ expr_metadata:
         label: "Literal: 1"
         is_boundary: false
       - id: "@cached_node_84"
-        snapshot_hash: 7c69a85fb5e728123f6f282d7c09436e
+        snapshot_hash: 48719ae06f8851f0f165ce19aae3d510
         type: CachedNode
         label: "Cache[cache] xorq_cached_node_name_placeholder"
         is_boundary: true
@@ -717,7 +717,7 @@ expr_metadata:
         schema:
           "dumps_of__inner_fit_1(VehAge, DrivAge, VehBrand, VehPower, VehGas, Region, Area, BonusMalus, Density, Exposure, ClaimAmount)": binary
       - id: "@cached_node_85"
-        snapshot_hash: f4be20586a8e274531cf47fb257a90eb
+        snapshot_hash: d8c6ac6fc926468492c44617c52e9965
         type: CachedNode
         label: "Cache[cache] xorq_cached_node_name_placeholder"
         is_boundary: true
@@ -746,7 +746,7 @@ expr_metadata:
           severity: float64
           premium: float64
       - id: "@dumps_of__inner_fit_2_86"
-        snapshot_hash: 784b7b58244c1d2da87394474aaaea30
+        snapshot_hash: 979b3d8ab61adfa9c05a2fc72f4f4a15
         type: dumps_of__inner_fit_2
         label: dumps_of__inner_fit_2
         is_boundary: false
@@ -852,7 +852,7 @@ expr_metadata:
         label: "Field:has_claim"
         is_boundary: false
       - id: "@cached_node_103"
-        snapshot_hash: 911c17fa8e928b095c3aa54e6aab1766
+        snapshot_hash: 81b1d74e6bf72f36ec2117aefda78d52
         type: CachedNode
         label: "Cache[cache] xorq_cached_node_name_placeholder"
         is_boundary: true
@@ -864,14 +864,14 @@ expr_metadata:
         schema:
           "dumps_of__inner_fit_0(VehAge, DrivAge, VehBrand, VehPower, VehGas, Region, Area, BonusMalus, Density, Exposure, has_claim)": binary
       - id: "@aggregate_104"
-        snapshot_hash: 977a70431ae159baea15d3ed8264f59f
+        snapshot_hash: 954449495e62a3198225ac4eca8a8e04
         type: Aggregate
         label: Aggregate
         is_boundary: false
         schema:
           "dumps_of__inner_fit_1(VehAge, DrivAge, VehBrand, VehPower, VehGas, Region, Area, BonusMalus, Density, Exposure, ClaimAmount)": binary
       - id: "@drop_columns_105"
-        snapshot_hash: cb72a2ab89395323cdc8c14a0e078c5d
+        snapshot_hash: 1c6f0564c2c94ea865ff9d3a662a36f3
         type: DropColumns
         label: DropColumns
         is_boundary: false
@@ -895,22 +895,22 @@ expr_metadata:
           severity: float64
           premium: float64
       - id: "@field_106"
-        snapshot_hash: 94634fea33edb8d64479033df7a19807
+        snapshot_hash: b87c2bdf64fe1c7979c2ad5c1260ff33
         type: Field
         label: "Field:p_claim"
         is_boundary: false
       - id: "@field_107"
-        snapshot_hash: 9ecb83976ab68491c60ee5ed31cdb98b
+        snapshot_hash: 0b2815f2be12e03a5f2a4cade0d1794e
         type: Field
         label: "Field:severity"
         is_boundary: false
       - id: "@field_108"
-        snapshot_hash: 272d482e3f669fd3393d34a9ecdda703
+        snapshot_hash: cf5f8da168dbb7816b48eda23937b202
         type: Field
         label: "Field:Exposure"
         is_boundary: false
       - id: "@field_109"
-        snapshot_hash: 561bd65c9be10a89f6f4386575841a37
+        snapshot_hash: ee8e1972555824227405caf27d567049
         type: Field
         label: "Field:ClaimAmount"
         is_boundary: false
@@ -936,7 +936,7 @@ expr_metadata:
           PurePremium: float64
           has_claim: int64
       - id: "@aggregate_111"
-        snapshot_hash: 4113bc720a48935041e7d41783fcee8c
+        snapshot_hash: 2e578bccb51b3a55393e8de6b0cbcba8
         type: Aggregate
         label: Aggregate
         is_boundary: false
@@ -969,7 +969,7 @@ expr_metadata:
         label: dumps_of__inner_fit_1
         is_boundary: false
       - id: "@project_114"
-        snapshot_hash: 0dd64ec5853530a3414d3a72a11ec6a1
+        snapshot_hash: a67b88425157bbba5f5adefe6ffa18ce
         type: Project
         label: Project
         is_boundary: false
@@ -1132,7 +1132,7 @@ expr_metadata:
         label: "Field:ClaimAmount"
         is_boundary: false
       - id: "@project_131"
-        snapshot_hash: 8b2329d2453faf00fc7301486fb5c06d
+        snapshot_hash: 204f0ae89c5532e54209121e6bcb90de
         type: Project
         label: Project
         is_boundary: false
@@ -1157,92 +1157,92 @@ expr_metadata:
           severity: float64
           premium: float64
       - id: "@field_132"
-        snapshot_hash: 55e9c40cb6819b868c5911dc9c25ee82
+        snapshot_hash: d6fce99c5782d3533945bc05e35f7ce9
         type: Field
         label: "Field:IDpol"
         is_boundary: false
       - id: "@field_133"
-        snapshot_hash: 088070084ac0098d37e780a23d07db27
+        snapshot_hash: 081305569132551f068707072bdce10e
         type: Field
         label: "Field:ClaimNb"
         is_boundary: false
       - id: "@field_134"
-        snapshot_hash: 3150e93d0ff4bfef9f813321c3ab40cf
+        snapshot_hash: afa9ba27e0ebdd460830ea63cffd6a15
         type: Field
         label: "Field:observed_exposure"
         is_boundary: false
       - id: "@field_135"
-        snapshot_hash: 45889e5ff3bd68b9395ec789fc047631
+        snapshot_hash: 7046a4923ac1bdc691cf167de5133bed
         type: Field
         label: "Field:Area"
         is_boundary: false
       - id: "@field_136"
-        snapshot_hash: 38ac846b6b287f73b54007b6ea89575e
+        snapshot_hash: 090bbe7ca09b4bb707cf75f0ad9938e2
         type: Field
         label: "Field:VehPower"
         is_boundary: false
       - id: "@field_137"
-        snapshot_hash: 4c43791bb7dc5bf4834f21fe025da2be
+        snapshot_hash: a603fbc744aa55c6260d73a753744ed3
         type: Field
         label: "Field:VehAge"
         is_boundary: false
       - id: "@field_138"
-        snapshot_hash: 806d6d216969b522a623b014af47dc4a
+        snapshot_hash: 9db2677b5b884d063fcb6e7a3847ce3e
         type: Field
         label: "Field:DrivAge"
         is_boundary: false
       - id: "@field_139"
-        snapshot_hash: 82c1a1d502c0bef924f2a2c16af91f3d
+        snapshot_hash: cfcacc8a6557476637cff5b0883e3b5c
         type: Field
         label: "Field:BonusMalus"
         is_boundary: false
       - id: "@field_140"
-        snapshot_hash: 36cec8beacf234ef4c04681b31ec40da
+        snapshot_hash: ea3b7059f695db3d9791e6aef8a676e0
         type: Field
         label: "Field:VehBrand"
         is_boundary: false
       - id: "@field_141"
-        snapshot_hash: 767ad095ad2f141ff54dfb9336b80e4e
+        snapshot_hash: 5af7f27f9883276ca485b0f00ba562a8
         type: Field
         label: "Field:VehGas"
         is_boundary: false
       - id: "@field_142"
-        snapshot_hash: 50a0b266e193e00147fce3c987a2b8e0
+        snapshot_hash: 4d95b9fff93d9f4fa377cb8a5d967657
         type: Field
         label: "Field:Density"
         is_boundary: false
       - id: "@field_143"
-        snapshot_hash: 51863f556d8212a8bb6a706315b6333a
+        snapshot_hash: b9856398eecf653da73d154c3936bdf7
         type: Field
         label: "Field:Region"
         is_boundary: false
       - id: "@field_144"
-        snapshot_hash: 6d4559a1835fbbc825efdc96faef955b
+        snapshot_hash: 3fc87029154e5c9ba62a50bde39c5886
         type: Field
         label: "Field:ClaimAmount"
         is_boundary: false
       - id: "@field_145"
-        snapshot_hash: ac09af3775a1744cacce51fc3d541845
+        snapshot_hash: 361431820bbb688d608457be5d3fa179
         type: Field
         label: "Field:PurePremium"
         is_boundary: false
       - id: "@field_146"
-        snapshot_hash: f160e836f94c025093301d5f3c8d8580
+        snapshot_hash: aafb30fafca02d30f5d3fd9abd03b244
         type: Field
         label: "Field:has_claim"
         is_boundary: false
       - id: "@field_147"
-        snapshot_hash: 04d7a8eee3b70955c26b65c2c24f0603
+        snapshot_hash: 37bca78a074d1eb876bce5820e5c3977
         type: Field
         label: "Field:p_claim"
         is_boundary: false
       - id: "@field_148"
-        snapshot_hash: c60ad0a580a5fc417d679fc49d5768de
+        snapshot_hash: a49300b022a888d202c9b53c117202ad
         type: Field
         label: "Field:severity"
         is_boundary: false
       - id: "@field_149"
-        snapshot_hash: d3fc45bc9ce774536702c4e273e87801
+        snapshot_hash: 105a711ca576c481bacde617fb2f3275
         type: Field
         label: "Field:premium"
         is_boundary: false
@@ -1349,7 +1349,7 @@ expr_metadata:
         label: "Field:has_claim"
         is_boundary: false
       - id: "@project_164"
-        snapshot_hash: 6125694966c8067ad1666020c3644f3e
+        snapshot_hash: 74d4f58465c381f8d1a7bf87a22bb170
         type: Project
         label: Project
         is_boundary: false
@@ -1373,97 +1373,97 @@ expr_metadata:
           p_claim: float64
           severity: float64
       - id: "@field_165"
-        snapshot_hash: 3376eed4fbf2264ea9c08a8baadd19aa
+        snapshot_hash: f267e2cae4052bd742e13318512d365f
         type: Field
         label: "Field:IDpol"
         is_boundary: false
       - id: "@field_166"
-        snapshot_hash: eba6ba2abf2220178170e72040ab4721
+        snapshot_hash: 6b6da801bf7f2889488096f5f1837441
         type: Field
         label: "Field:ClaimNb"
         is_boundary: false
       - id: "@field_167"
-        snapshot_hash: 25190b02a3216863c07055d9a5441028
+        snapshot_hash: 0a9392a65925b2cc6674a5e303461aae
         type: Field
         label: "Field:Exposure"
         is_boundary: false
       - id: "@field_168"
-        snapshot_hash: 987270c15bd83f663724d6f2a07a0444
+        snapshot_hash: 3b42607260080f6ceee0f7fba878f384
         type: Field
         label: "Field:Area"
         is_boundary: false
       - id: "@field_169"
-        snapshot_hash: 3983488a10adb46b192bc54179663b4b
+        snapshot_hash: f0e25275371b93669c5840d6e28ef2f5
         type: Field
         label: "Field:VehPower"
         is_boundary: false
       - id: "@field_170"
-        snapshot_hash: 10fc2802065c41fc9c55fad21a3fc7fc
+        snapshot_hash: f48381f0fc7a53547b486d64370f118c
         type: Field
         label: "Field:VehAge"
         is_boundary: false
       - id: "@field_171"
-        snapshot_hash: cc66185d4c91b160bb6b458e1ae7cf91
+        snapshot_hash: f177867a79206738e7527d7cb6322a3b
         type: Field
         label: "Field:DrivAge"
         is_boundary: false
       - id: "@field_172"
-        snapshot_hash: a38c1498c8331147883a23e9c42ec1a4
+        snapshot_hash: beef96f9597e5b330630b6ffaa3eebe2
         type: Field
         label: "Field:BonusMalus"
         is_boundary: false
       - id: "@field_173"
-        snapshot_hash: e9daf3c4ef0c4108e1540250eaba0077
+        snapshot_hash: 154bf91651a17e027169259b10df24ac
         type: Field
         label: "Field:VehBrand"
         is_boundary: false
       - id: "@field_174"
-        snapshot_hash: 360b32ebc117fd438d74a5f11ba0f053
+        snapshot_hash: c2ce2729cf043443655c4f88fe35e20c
         type: Field
         label: "Field:VehGas"
         is_boundary: false
       - id: "@field_175"
-        snapshot_hash: 56d7ff19b7a3a48ae8c5f5855906c781
+        snapshot_hash: dbba5634610930bf6abac8abd698d015
         type: Field
         label: "Field:Density"
         is_boundary: false
       - id: "@field_176"
-        snapshot_hash: a83157d409fc17c5c6c169c1788cf860
+        snapshot_hash: 2885fbc47a4615a1e5e8cda4ee6d1c07
         type: Field
         label: "Field:Region"
         is_boundary: false
       - id: "@field_177"
-        snapshot_hash: 963e6948f4a3bb81b308327333eb67e7
+        snapshot_hash: 5d720cbd36ff21a882991cd6b75b7065
         type: Field
         label: "Field:ClaimAmount"
         is_boundary: false
       - id: "@field_178"
-        snapshot_hash: cc8335e0827eec1121f28d2dc1fd167a
+        snapshot_hash: cf0c2660731540c23fbf78dc28cba65c
         type: Field
         label: "Field:PurePremium"
         is_boundary: false
       - id: "@field_179"
-        snapshot_hash: 445d2e6ee3be3cbcd4e578b9f925c243
+        snapshot_hash: 4f08def4455a98388f2f405643704bfd
         type: Field
         label: "Field:has_claim"
         is_boundary: false
       - id: "@field_180"
-        snapshot_hash: dfc2feeebc633c489826a0acd9edf158
+        snapshot_hash: 0358b2c5f8c063f384a93e53b0c2a887
         type: Field
         label: "Field:observed_exposure"
         is_boundary: false
       - id: "@field_181"
-        snapshot_hash: c9c2fa40a55c08745178122292c7ceae
+        snapshot_hash: ee8c7783067219176bd3e09bf6f37d21
         type: Field
         label: "Field:p_claim"
         is_boundary: false
       - id: "@field_182"
-        snapshot_hash: f8eebefb85428c94b4bc2e3b5f9f664b
+        snapshot_hash: 8ee9785f6cb182c9ff6817c1d161af93
         type: Field
         label: "Field:severity"
         is_boundary: false
       - id: "@multiply_183"
-        snapshot_hash: 64dba9aa424c6089cb54cf1f0b82c3ab
+        snapshot_hash: 44cc6a684226c81b152466d6b601eea2
         type: Multiply
         label: Multiply
         is_boundary: false
@@ -1611,17 +1611,17 @@ expr_metadata:
         label: "Field:observed_exposure"
         is_boundary: false
       - id: "@array_index_206"
-        snapshot_hash: 211c577a4343abb5983ee3bf0d1e373c
+        snapshot_hash: d043bce457271ccafcae20f0d47d640f
         type: ArrayIndex
         label: ArrayIndex
         is_boundary: false
-      - id: "@predict_severity_a1090dd95c03_207"
-        snapshot_hash: 0b801aaf300377fd7698366fdc5e5df3
-        type: _predict_severity_a1090dd95c03
+      - id: "@predict_severity_206791b6c090_207"
+        snapshot_hash: c8b3471842ad6d9a1eb384595f629d4b
+        type: _predict_severity_206791b6c090
         label: ExprScalarUDF
         is_boundary: true
         boundary_kind: udf
-        udf_name: _predict_severity_a1090dd95c03
+        udf_name: _predict_severity_206791b6c090
         udf_signature: "inputs: [uint8, uint8, string, uint8, string, string, string, uint8, float64, float64] -> output: float64"
         schema:
           VehAge: uint8
@@ -1850,13 +1850,13 @@ expr_metadata:
         type: Field
         label: "Field:observed_exposure"
         is_boundary: false
-      - id: "@predict_proba_claim_75f05105c6a2_245"
-        snapshot_hash: 13fa7739a84b270a60b52c723ae96aee
-        type: _predict_proba_claim_75f05105c6a2
+      - id: "@predict_proba_claim_f992faef00d7_245"
+        snapshot_hash: 426c28e896c9af0ef04a4b464c6b98db
+        type: _predict_proba_claim_f992faef00d7
         label: ExprScalarUDF
         is_boundary: true
         boundary_kind: udf
-        udf_name: _predict_proba_claim_75f05105c6a2
+        udf_name: _predict_proba_claim_f992faef00d7
         udf_signature: "inputs: [uint8, uint8, string, uint8, string, string, string, uint8, float64, float64] -> output: array<float64>"
         schema:
           VehAge: uint8
@@ -2566,7 +2566,7 @@ expr_metadata:
         to: "@field_22"
         scope: root
       - from: "@project_2"
-        to: "@predict_calibrated_a1090dd95c03_23"
+        to: "@predict_calibrated_206791b6c090_23"
         scope: root
       - from: "@project_3"
         to: "@project_24"
@@ -2685,7 +2685,7 @@ expr_metadata:
       - from: "@field_22"
         to: "@project_3"
         scope: root
-      - from: "@predict_calibrated_a1090dd95c03_23"
+      - from: "@predict_calibrated_206791b6c090_23"
         to: "@cached_node_44"
         scope: root
       - from: "@project_24"
@@ -2743,7 +2743,7 @@ expr_metadata:
         to: "@array_index_62"
         scope: root
       - from: "@project_24"
-        to: "@predict_severity_a1090dd95c03_63"
+        to: "@predict_severity_206791b6c090_63"
         scope: root
       - from: "@field_25"
         to: "@project_24"
@@ -2908,12 +2908,12 @@ expr_metadata:
         to: "@project_45"
         scope: root
       - from: "@array_index_62"
-        to: "@predict_proba_claim_75f05105c6a2_82"
+        to: "@predict_proba_claim_f992faef00d7_82"
         scope: root
       - from: "@array_index_62"
         to: "@literal_83"
         scope: root
-      - from: "@predict_severity_a1090dd95c03_63"
+      - from: "@predict_severity_206791b6c090_63"
         to: "@cached_node_84"
         scope: root
       - from: "@aggregate_64"
@@ -3015,7 +3015,7 @@ expr_metadata:
       - from: "@field_81"
         to: "@project_65"
         scope: root
-      - from: "@predict_proba_claim_75f05105c6a2_82"
+      - from: "@predict_proba_claim_f992faef00d7_82"
         to: "@cached_node_103"
         scope: root
       - from: "@cached_node_84"
@@ -3520,7 +3520,7 @@ expr_metadata:
         to: "@array_index_206"
         scope: root
       - from: "@project_164"
-        to: "@predict_severity_a1090dd95c03_207"
+        to: "@predict_severity_206791b6c090_207"
         scope: root
       - from: "@field_165"
         to: "@project_164"
@@ -3754,12 +3754,12 @@ expr_metadata:
         to: "@project_189"
         scope: root
       - from: "@array_index_206"
-        to: "@predict_proba_claim_75f05105c6a2_245"
+        to: "@predict_proba_claim_f992faef00d7_245"
         scope: root
       - from: "@array_index_206"
         to: "@literal_83"
         scope: root
-      - from: "@predict_severity_a1090dd95c03_207"
+      - from: "@predict_severity_206791b6c090_207"
         to: "@cached_node_84"
         scope: root
       - from: "@project_208"
@@ -3975,7 +3975,7 @@ expr_metadata:
       - from: "@field_244"
         to: "@project_229"
         scope: root
-      - from: "@predict_proba_claim_75f05105c6a2_245"
+      - from: "@predict_proba_claim_f992faef00d7_245"
         to: "@cached_node_103"
         scope: root
       - from: "@drop_columns_246"
